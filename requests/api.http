@@ -1,8 +1,8 @@
-GET https://jsonplaceholder.typicode.com/posts
+GET https://swapi.co/api/people/
 
 ###
 
-POST https://jsonplaceholder.typicode.com/posts
+POST https://swapi.co/api/people/
 Content-Type: application/json
 
 {
