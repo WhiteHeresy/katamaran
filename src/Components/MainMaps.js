@@ -1,11 +1,11 @@
 import React from "react";
 
-function Main() {
+function MainMaps() {
   return (
     <div className="wholeMain">
-      <p>I am the Maion dish</p>
+      <p>Maps</p>
     </div>
   );
 }
 
-export default Main;
+export default MainMaps;

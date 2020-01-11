@@ -1,11 +1,11 @@
 import React from "react";
 
-function Main() {
+function MainGraphs() {
   return (
     <div className="wholeMain">
-      <p>I am the Maion dish</p>
+      <p>Graphs</p>
     </div>
   );
 }
 
-export default Main;
+export default MainGraphs;
