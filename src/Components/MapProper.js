@@ -68,6 +68,17 @@ class MapProper extends Component {
     this.setState({ animating: false });
   };
 
+  btnStyle = {
+    color: "#444",
+    cursor: "pointer",
+    border: "1px solid #aaa",
+    borderRadius: "0.3em",
+    backgroundColor: "#fff",
+    transition: "background-color 0.2s ease-out",
+    backgroundmage: "linearGradient(#ffffff, #e5e5e5)",
+    margin: "0.2em"
+  };
+
   render() {
     const {
       center,
@@ -91,8 +102,12 @@ class MapProper extends Component {
         }}
       >
         <div>
-          <button onClick={this.zoomIn}>Zoom In</button>
-          <button onClick={this.zoomOut}>Zoom Out</button>{" "}
+          <button onClick={this.zoomIn} style={this.btnStyle}>
+            Zoom In
+          </button>
+          <button onClick={this.zoomOut} style={this.btnStyle}>
+            Zoom Out
+          </button>{" "}
           {Math.round(center[0] * 10000) / 10000} ({lat2tile(center[0], zoom)})
           {" x "}
           {Math.round(center[1] * 10000) / 10000} ({lng2tile(center[1], zoom)})
