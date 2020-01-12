@@ -5,7 +5,7 @@ import Footer from "./Components/Footer.js";
 import MainMaps from "./Components/MainMaps";
 import MainGraphs from "./Components/MainGraphs";
 import MainAbout from "./Components/MainAbout";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; //router has to stay
 
 function App() {
   return (

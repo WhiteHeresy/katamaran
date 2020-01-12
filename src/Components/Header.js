@@ -5,9 +5,7 @@ function Header() {
   const { push } = useHistory();
   return (
     <header className="wholeHeader">
-      <div className="logoHeader">
-        <span className="logoTextHeader">Katamaran Web App</span>
-      </div>
+      <div className="logoHeader">Katamaran Web App</div>
       <button className="btn" onClick={() => push("/maps")}>
         Maps
       </button>

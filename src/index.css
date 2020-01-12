@@ -9,8 +9,8 @@ html {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  font: 15px monospace, sans-serif;
-  background-color: rgba(128, 128, 128, 0.3);
+  font: 15px sans-serif, monospace;
+  background-color: rgba(148, 148, 148, 0.3);
 }
 
 /* ----- HEADER CSS ----- */
@@ -24,9 +24,10 @@ html {
 }
 
 .logoHeader {
+  display: flex;
+  flex: 1;
   border: 9px solid black;
   border-style: ridge;
-  display: flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
@@ -40,11 +41,8 @@ html {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3' viewBox='0 0 8 8'%3E%3Cg fill='%23fff' fill-opacity='.1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 2px 2px -1px rgba(0, 0, 0, 0.5),
     0 1px 0 rgba(255, 255, 255, 0.3) inset;
-}
-
-.logoTextHeader {
   font-family: "Lucida Console", Monaco, monospace;
-  font-size: 2.2rem;
+  font-size: 2vw;
   text-shadow: 0px 2px 3px #555;
 }
 
@@ -52,6 +50,7 @@ html {
 
 .wholeMain {
   flex: 1 0 auto;
+  display: flex;
   min-height: auto;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -69,7 +68,97 @@ html {
   padding: 10px 20px;
 }
 
-.list-heading {
+.listHeading {
+  margin-left: 1rem;
+  font-weight: normal;
+}
+
+/* ----- SIDEBAR CSS ----- */
+
+.wholeSidebar {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 20%;
+  margin: 5px;
+}
+
+.btnSidebar {
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #444;
+  cursor: pointer;
+  line-height: 1.3rem;
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  margin: 0.6em 1.4em 0.5em 0.8em;
+  margin: 2px;
+  width: 100%;
+  max-width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 0.5em;
+  background-color: #fff;
+  background-image: linear-gradient(#ffffff, #e5e5e5),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3' viewBox='0 0 8 8'%3E%3Cg fill='%23fff' fill-opacity='.1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  transition: background-color 0.2s ease-out;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 2px 2px -1px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.3) inset;
+}
+
+.btnSidebar:active {
+  top: 1px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset;
+}
+
+.btnSidebar:focus {
+  outline: none;
+}
+
+.btnSidebar[disabled]::-moz-focus-inner {
+  border: 0;
+}
+
+.selectSidebar {
+  display: block;
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #444;
+  line-height: 1.3rem;
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  margin: 0.6em 1.4em 0.5em 0.8em;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: 0.5em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
+    linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
+}
+.selectSidebar::-ms-expand {
+  display: none;
+}
+.selectSidebar:hover {
+  border-color: #888;
+  border-width: 2px;
+}
+.selectSidebar:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none;
+}
+.selectSidebar option {
   font-weight: normal;
 }
 
@@ -137,22 +226,4 @@ html {
 
 .btn::-moz-focus-inner {
   border: 0;
-}
-
-.btnCurrent {
-  flex: 1;
-  padding: 6px 20px;
-  cursor: pointer;
-  font-size: 2rem;
-  font-weight: 500;
-  text-decoration: none;
-  white-space: nowrap;
-  background-image: linear-gradient(
-      rgba(148, 148, 148, 0.6),
-      rgba(148, 148, 148, 0.2)
-    ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3' viewBox='0 0 8 8'%3E%3Cg fill='%23fff' fill-opacity='.1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
-  transition: background-color 0.2s ease-out;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 2px 2px -1px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(255, 255, 255, 0.3) inset;
 }
