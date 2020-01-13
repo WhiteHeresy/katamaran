@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar.js";
 
 function Main() {
   const [data, setData] = useState(sampleData.sampleData);
-  const dataKeys = Object.keys(data[15000]);
+  const dataKeys = Object.keys(data[1]);
 
   return (
     <div className="wholeMain">

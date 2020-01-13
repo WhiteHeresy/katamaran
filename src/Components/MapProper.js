@@ -2,16 +2,22 @@ import React, { Component } from "react";
 import Map from "pigeon-maps";
 import Marker from "pigeon-marker";
 import Overlay from "pigeon-overlay";
+import PlacedMarkers from "./PlacedMarkers";
 
-const lng2tile = (lon, zoom) => ((lon + 180) / 360) * Math.pow(2, zoom);
-const lat2tile = (lat, zoom) =>
-  ((1 -
-    Math.log(
-      Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180)
-    ) /
-      Math.PI) /
-    2) *
-  Math.pow(2, zoom);
+const lng2tile = (lon, zoom) => {
+  return ((lon + 180) / 360) * Math.pow(2, zoom);
+};
+const lat2tile = (lat, zoom) => {
+  return (
+    ((1 -
+      Math.log(
+        Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180)
+      ) /
+        Math.PI) /
+      2) *
+    Math.pow(2, zoom)
+  );
+};
 
 class MapProper extends Component {
   constructor(props) {
@@ -29,7 +35,8 @@ class MapProper extends Component {
       mouseEvents: true,
       touchEvents: true,
       minZoom: 1,
-      maxZoom: 18
+      maxZoom: 20,
+      mapData: this.props.mapData
     };
   }
 
@@ -46,15 +53,10 @@ class MapProper extends Component {
   };
 
   handleBoundsChange = ({ center, zoom, bounds, initial }) => {
-    if (initial) {
-      console.log("Got initial bounds: ", bounds);
-    }
     this.setState({ center, zoom });
   };
 
-  handleClick = ({ event, latLng, pixel }) => {
-    console.log("Map clicked!", latLng, pixel);
-  };
+  handleClick = ({ event, latLng, pixel }) => {};
 
   handleMarkerClick = ({ event, payload, anchor }) => {
     console.log(`Marker #${payload} clicked at: `, anchor);
@@ -81,7 +83,6 @@ class MapProper extends Component {
 
   render() {
     const {
-      center,
       zoom,
       animate,
       metaWheelZoom,
@@ -90,9 +91,10 @@ class MapProper extends Component {
       mouseEvents,
       touchEvents,
       minZoom,
-      maxZoom
+      maxZoom,
+      mapData
     } = this.state;
-
+    const center = this.state.center.map(item => parseFloat(item)); //no destruct since it needs to be a float
     return (
       <div
         style={{
@@ -132,7 +134,18 @@ class MapProper extends Component {
           defaultWidth={this.props.mapWidth}
           height={this.props.mapHeight}
           boxClassname="pigeon-filters"
-        ></Map>
+        >
+          <PlacedMarkers
+            mapData={mapData}
+            handleClick={this.handleMarkerClick}
+          />
+
+          <Marker
+            anchor={[50.874, 4.6947]}
+            payload={2}
+            onClick={this.handleMarkerClick}
+          />
+        </Map>
       </div>
     );
   }
