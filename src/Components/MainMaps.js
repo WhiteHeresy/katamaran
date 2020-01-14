@@ -12,7 +12,7 @@ class MainMaps extends Component {
       filData: {},
       mapWidth: 0.8 * window.innerWidth,
       mapHeight: 0.8 * window.innerHeight,
-      initCenter: [50.284008, 18.70069]
+      initCenter: [50.288052, 18.676916]
     };
   }
 

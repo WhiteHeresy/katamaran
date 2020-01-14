@@ -135,16 +135,17 @@ class MapProper extends Component {
           height={this.props.mapHeight}
           boxClassname="pigeon-filters"
         >
-          <PlacedMarkers
-            mapData={mapData}
-            handleClick={this.handleMarkerClick}
-          />
-
-          <Marker
-            anchor={[50.874, 4.6947]}
-            payload={2}
-            onClick={this.handleMarkerClick}
-          />
+          {mapData.map(markerItem => (
+            <Marker
+              key={markerItem.ID}
+              anchor={[
+                parseFloat(markerItem.LATITUDE),
+                parseFloat(markerItem.LONGITUDE)
+              ]}
+              payload={markerItem.ID}
+              onClick={this.handleMarkerClick}
+            />
+          ))}
         </Map>
       </div>
     );
