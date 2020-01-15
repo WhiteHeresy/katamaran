@@ -1,28 +1,41 @@
 import React, { Component } from "react";
-import Leaflet from "leaflet";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer, Polyline } from "react-leaflet";
+import PlacedMarkers from "./PlacedMarkers";
 
 class MapProper extends Component {
-  state = {
-    lat: 51.505,
-    lng: -0.09,
-    zoom: 13
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      mapData: this.props.mapData,
+      center: this.props.initCenter,
+      initZoom: this.props.initZoom
+    };
+  }
 
   render() {
-    const position = [this.state.lat, this.state.lng];
+    const { center, mapData, initZoom } = this.state;
+    const polyList = [];
+    mapData.map(markerData =>
+      polyList.push([
+        parseFloat(markerData.LATITUDE),
+        parseFloat(markerData.LONGITUDE)
+      ])
+    );
     return (
-      <Map center={position} zoom={this.state.zoom}>
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </Map>
+      <div>
+        <Map center={center} zoom={initZoom} id={"mapid"}>
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <PlacedMarkers mapData={mapData}></PlacedMarkers>
+          {this.props.dispPath ? (
+            <Polyline color={"red"} positions={polyList} />
+          ) : null}
+          ;
+        </Map>
+      </div>
     );
   }
 }
