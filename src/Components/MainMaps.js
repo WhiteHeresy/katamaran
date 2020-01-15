@@ -17,17 +17,10 @@ class MainMaps extends Component {
   }
 
   render() {
-    const { mapWidth, mapHeight, initCenter, data } = this.state;
     return (
       <div className="wholeMain">
         <Sidebar></Sidebar>
-        <MapProper
-          mapWidth={mapWidth}
-          mapHeight={mapHeight}
-          center={initCenter}
-          zoom={17}
-          mapData={[data[1], data[2000]]} //mapData forwarded is an array of objects
-        ></MapProper>
+        <MapProper></MapProper>
       </div>
     );
   }

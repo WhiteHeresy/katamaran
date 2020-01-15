@@ -9,6 +9,7 @@ function Main() {
   return (
     <div className="wholeMain">
       <Sidebar></Sidebar>
+
       <div>
         <div>Sample Data: {data.length} elements</div>
         <br></br>
