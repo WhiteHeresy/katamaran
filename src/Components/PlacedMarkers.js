@@ -28,7 +28,13 @@ class PlacedMarkers extends Component {
           parseFloat(markerData.LONGITUDE)
         ]}
       >
-        <Popup key={markerData.ID}>{markerData.ID}></Popup>
+        <Popup key={markerData.ID}>
+          ID = {markerData.ID}
+          <br></br>
+          LAT = {markerData.LATITUDE}
+          <br></br>
+          LNG = {markerData.LONGITUDE}
+        </Popup>
       </Marker>
     ));
 

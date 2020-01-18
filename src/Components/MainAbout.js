@@ -17,6 +17,7 @@ function MainAbout() {
             <li>React Leaflet 2.6.1</li>
             <li>Node </li>
             <li>React Date Picker</li>
+            <li>Papa parse</li>
           </ul>
         </section>
         <section>

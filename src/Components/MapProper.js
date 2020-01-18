@@ -23,7 +23,7 @@ class MapProper extends Component {
       ])
     );
     return (
-      <div>
+      <div style={{ width: "100%", height: "100%" }}>
         <Map center={center} zoom={initZoom} id={"mapid"}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

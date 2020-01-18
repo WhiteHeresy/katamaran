@@ -12,8 +12,7 @@ class GraphProper extends Component {
       <div
         style={{
           width: this.props.graphWidth,
-          height: this.props.graphHeight,
-          margin: "0.6em 1.4em 0.5em 0.8em"
+          height: this.props.graphHeight
         }}
       >
         AAAA CHUJ

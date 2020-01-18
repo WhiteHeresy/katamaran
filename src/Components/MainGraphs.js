@@ -11,46 +11,6 @@ function MainGraphs() {
 
   return (
     <div className="wholeMain">
-      <div className="wholeSidebar">
-        <DatePicker
-          selected={startDate}
-          onChange={date => setStartDate(date)}
-        />
-        <select class="selectSidebar">
-          <option>Select an attribute to filter by</option>
-          <option>Apples</option>
-          <option>Bananas</option>
-          <option>Grapes</option>
-          <option>Oranges</option>
-        </select>
-        <select class="selectSidebar">
-          <option>Select an attribute to filter by</option>
-          <option>Apples</option>
-          <option>Bananas</option>
-          <option>Grapes</option>
-          <option>Oranges</option>
-        </select>
-        <select class="selectSidebar">
-          <option>Select an attribute to filter by</option>
-          <option>Apples</option>
-          <option>Bananas</option>
-          <option>Grapes</option>
-          <option>Oranges</option>
-        </select>
-        <select class="selectSidebar">
-          <option>Select an attribute to filter by</option>
-          <option>Apples</option>
-          <option>Bananas</option>
-          <option>Grapes</option>
-          <option>Oranges</option>
-        </select>
-        <button className="btnSidebar" onClick="">
-          Filter data
-        </button>
-        <button className="btnSidebar" onClick="">
-          Fetch new data
-        </button>
-      </div>
       <GraphProper
         graphWidth={graphWidth}
         graphHeight={graphHeight}
