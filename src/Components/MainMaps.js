@@ -16,11 +16,25 @@ class MainMaps extends Component {
       initCenter: [50.283752, 18.700894], //change to reflect the first element of query
       dispPath: false, //to display the path
       dispArea: false, //to display uploadedd area
+      dispIDW: false, //to display the 2D interpolation instead of HeatMap
+      dispDrawnArea: false, //to display the area drawn by the user
       startDate: new Date(), //for filtering based on data
       uploadedFile: null, // the file uploaded by the user (for meta)
       uploadedFileData: [], // the coordinates uploaded by the user
       uploadedBool: false //to check whether a file has been uploaded
     };
+  }
+
+  componentWillMount() {
+    // just delete after true data is passed and not this garbage
+    const passedMapData = [];
+    for (var i = 600; i < 1000; i = i + 20) {
+      if (this.state.mapData[i].LATITUDE && this.state.mapData[i].LONGITUDE)
+        passedMapData.push(this.state.mapData[i]);
+    }
+    this.setState({
+      mapData: passedMapData
+    });
   }
 
   handleBoolClick = e => {
@@ -66,11 +80,14 @@ class MainMaps extends Component {
       initCenter,
       dispPath,
       dispArea,
+      dispIDW,
+      dispDrawnArea,
       startDate,
       uploadedBool,
       uploadedFile,
       uploadedFileData
     } = this.state;
+
     return (
       <div className="wholeMain">
         <div className="wholeSidebar">
@@ -129,6 +146,34 @@ class MainMaps extends Component {
                 onClick={this.handleBoolClick}
               />
             </span>
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              Display the drawn area:
+              <input
+                type="checkbox"
+                checked={dispDrawnArea}
+                name="dispDrawnArea"
+                onClick={this.handleBoolClick}
+              />
+            </span>
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              2D data representation:
+              <input
+                type="checkbox"
+                checked={dispIDW}
+                name="dispIDW"
+                onClick={this.handleBoolClick}
+              />
+            </span>
           </div>
 
           <select class="selectSidebar">
@@ -153,18 +198,13 @@ class MainMaps extends Component {
           </button>
         </div>
         <MapProper
-          mapData={[
-            mapData[1000],
-            mapData[1100],
-            mapData[1200],
-            mapData[1300],
-            mapData[1400],
-            mapData[1500]
-          ]}
+          mapData={mapData}
           initCenter={initCenter}
           initZoom={18}
           dispPath={dispPath}
           dispArea={dispArea}
+          dispDrawnArea={dispDrawnArea}
+          dispIDW={dispIDW}
           area={uploadedFileData}
         ></MapProper>
       </div>

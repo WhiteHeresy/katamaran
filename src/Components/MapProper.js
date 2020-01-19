@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Map, TileLayer, Polyline } from "react-leaflet";
+import { Map, withLeaflet, TileLayer, Polyline, Polygon } from "react-leaflet";
 import PlacedMarkers from "./PlacedMarkers";
-import { Polygon } from "leaflet";
+import MeasureControlDefault from "react-leaflet-measure";
 
 class MapProper extends Component {
   constructor(props) {
@@ -10,41 +10,68 @@ class MapProper extends Component {
     this.state = {
       mapData: this.props.mapData,
       center: this.props.initCenter,
-      initZoom: this.props.initZoom
+      initZoom: this.props.initZoom,
+      measuredArea: []
     };
   }
 
+  handleMeasureFinish = result => {
+    this.setState({
+      measuredArea: result.points
+    });
+  };
+
   render() {
-    const { center, mapData, initZoom } = this.state;
-    const area = this.props.area;
+    const measureOptions = {
+      position: "topright",
+      primaryLengthUnit: "meters",
+      secondaryLengthUnit: "kilometers",
+      primaryAreaUnit: "sqmeters",
+      secondaryAreaUnit: "acres",
+      activeColor: "#db4a29",
+      completedColor: "#9b2d14"
+    };
+    const MeasureControl = withLeaflet(MeasureControlDefault);
+    const { center, mapData, initZoom, measuredArea } = this.state;
+    const { area, dispPath, dispArea, dispIDW, dispDrawnArea } = this.props;
     const path = [];
-    const TESTPOLYGON = [
-      [51.515, -0.09],
-      [51.52, -0.1],
-      [51.52, -0.12]
-    ];
     mapData.map(markerData =>
       path.push([
         parseFloat(markerData.LATITUDE),
         parseFloat(markerData.LONGITUDE)
       ])
     );
-
-    console.log(path);
-    console.log(area);
+    console.log(this.state.measuredArea);
     return (
       <div style={{ width: "100%", height: "100%" }}>
         <Map center={center} zoom={initZoom} id={"mapid"}>
+          {dispIDW ? null : null}
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <PlacedMarkers mapData={mapData}></PlacedMarkers>
-          {this.props.dispPath ? (
-            <Polyline color={"red"} opacity={0.5} positions={path} />
+          {dispPath ? (
+            <Polyline
+              color={"red"}
+              opacity={0.5}
+              smoothFactor={2.0}
+              positions={path}
+            />
           ) : null}
-          {this.props.dispArea ? (
-            <Polygon color="purple" positions={area} />
+          {dispArea ? (
+            <Polygon color="purple" fillOpacity={0.2} positions={area} />
+          ) : null}
+          <MeasureControl
+            {...measureOptions}
+            onMeasurefinish={this.handleMeasureFinish}
+          />
+          {dispDrawnArea ? (
+            <Polygon
+              color="purple"
+              fillOpacity={0.2}
+              positions={measuredArea}
+            />
           ) : null}
         </Map>
       </div>
