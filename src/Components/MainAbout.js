@@ -28,6 +28,15 @@ function MainAbout() {
               Please disable any kind of adblock and/or script disallowing
               software
             </li>
+            <li>
+              When uploading a polygon of the area, please do so in the form of
+              a CSV file, with the format <i>[LNG LAT, LNG LAT</i>...] <br />
+              For files exported from QGIS, you only need to delete everything
+              before and after the actual data. Additionally, the first and the
+              last point must be different.
+              <br></br>
+              Both may be subject to change later (can be filtered)
+            </li>
           </ul>
         </section>
       </div>

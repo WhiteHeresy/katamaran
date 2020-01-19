@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import sampleData from "../sample_data/data.json";
-import Sidebar from "./Sidebar.js";
 
 function Main() {
   const [data, setData] = useState(sampleData.sampleData);
@@ -8,8 +7,6 @@ function Main() {
 
   return (
     <div className="wholeMain">
-      <Sidebar></Sidebar>
-
       <div>
         <div>Sample Data: {data.length} elements</div>
         <br></br>

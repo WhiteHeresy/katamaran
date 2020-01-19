@@ -89,6 +89,27 @@ html {
   margin: 5px;
 }
 
+.boxSidebar {
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #444;
+  cursor: pointer;
+  line-height: 1.3rem;
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  margin: 0.6em 1.4em 0.5em 0.8em;
+  width: 100%;
+  max-width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 0.5em;
+  background-color: #fff;
+  background-image: linear-gradient(#ffffff, #e5e5e5),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3' viewBox='0 0 8 8'%3E%3Cg fill='%23fff' fill-opacity='.1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  transition: background-color 0.2s ease-out;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 2px 2px -1px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.3) inset;
+}
+
 .btnSidebar {
   font-size: 1rem;
   font-family: sans-serif;

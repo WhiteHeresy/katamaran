@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Sidebar from "./Sidebar.js";
 import MapProper from "./MapProper.js";
 import sampleData from "../sample_data/data.json";
 import DatePicker from "react-datepicker";
@@ -16,45 +15,62 @@ class MainMaps extends Component {
       mapHeight: 0.8 * window.innerHeight, //prolly constant
       initCenter: [50.283752, 18.700894], //change to reflect the first element of query
       dispPath: false, //to display the path
+      dispArea: false, //to display uploadedd area
       startDate: new Date(), //for filtering based on data
-      uploadedMap: null, // the coordinates uploaded by the user
-      uploaded: false //to check whether a file has been uploaded
+      uploadedFile: null, // the file uploaded by the user (for meta)
+      uploadedFileData: [], // the coordinates uploaded by the user
+      uploadedBool: false //to check whether a file has been uploaded
     };
   }
 
-  handlePathClick = () => {
-    this.setState(prevState => ({
-      dispPath: !prevState.dispPath
+  handleBoolClick = e => {
+    const { name, checked } = e.target;
+
+    this.setState(() => ({
+      [name]: checked
     }));
   };
 
   uploadFile = event => {
-    let file = event.target.files[0];
-
-    if (file) {
+    if (event.target.files[0]) {
       this.setState({
-        uploaded: true,
-        uploadedMap: file
+        uploadedFile: event.target.files[0],
+        uploadedBool: true
       });
+
+      Papa.parse(event.target.files[0], {
+        complete: this.updateData,
+        header: false
+      });
+
       // axios.post('/files', data)...
     }
   };
 
-  importCSV = () => {
-    const { uploadedMap } = this.state;
-    Papa.parse(uploadedMap, {
-      complete: this.updateData,
-      header: true
+  updateData = result => {
+    const [raw] = result.data;
+
+    const parsedCoords = raw.map(coords => {
+      const [LONG, LAT] = coords.split(" ").map(coord => parseFloat(coord));
+      return [LAT, LONG];
+    });
+
+    this.setState({
+      uploadedFileData: parsedCoords
     });
   };
 
-  updateData(result) {
-    var data = result.data;
-    console.log(data);
-  }
-
   render() {
-    const { mapData, initCenter, dispPath, startDate } = this.state;
+    const {
+      mapData,
+      initCenter,
+      dispPath,
+      dispArea,
+      startDate,
+      uploadedBool,
+      uploadedFile,
+      uploadedFileData
+    } = this.state;
     return (
       <div className="wholeMain">
         <div className="wholeSidebar">
@@ -62,24 +78,12 @@ class MainMaps extends Component {
             selected={startDate}
             onChange={date => this.setState(startDate)}
           />
-          {/* 
-          <div className="inputSidebar"> */}
           <label
             for="fileUpload"
-            /* style={{
-              width: "100%",
-              height: "100%",
-              display: "block",
-              boxSizing: "border-box",
-              cursor: "pointer",
-              padding: "0.6em 1.4em 0.5em 0.8em"
-            }} */
             className="btnSidebar"
             style={{ boxSizing: "border-box" }}
           >
-            {this.state.uploaded
-              ? this.state.uploadedMap.name
-              : "Upload the map "}
+            {uploadedBool ? uploadedFile.name : "Upload the area data"}
           </label>
           <input
             type="file"
@@ -88,10 +92,45 @@ class MainMaps extends Component {
             onChange={this.uploadFile}
             style={{ display: "none" }}
           />
-          {/* </div> */}
-          <button className="btnSidebar" onClick={this.handlePathClick}>
-            Display the vehicle path: {dispPath ? "Yes" : "No"}
-          </button>
+          <div
+            className="boxSidebar"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              boxSizing: "border-box",
+              justifyContent: "space-between"
+            }}
+          >
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              Display the vehicle path:
+              <input
+                type="checkbox"
+                checked={dispPath}
+                name="dispPath"
+                onClick={this.handleBoolClick}
+              />
+            </span>
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              Display the uploaded area:
+              <input
+                type="checkbox"
+                checked={dispArea}
+                name="dispArea"
+                onClick={this.handleBoolClick}
+              />
+            </span>
+          </div>
+
           <select class="selectSidebar">
             <option>Select the module</option>
             <option>Apples</option>
@@ -106,7 +145,6 @@ class MainMaps extends Component {
             <option>Grapes</option>
             <option>Oranges</option>
           </select>
-
           <button className="btnSidebar" onClick="">
             Filter data
           </button>
@@ -126,6 +164,8 @@ class MainMaps extends Component {
           initCenter={initCenter}
           initZoom={18}
           dispPath={dispPath}
+          dispArea={dispArea}
+          area={uploadedFileData}
         ></MapProper>
       </div>
     );

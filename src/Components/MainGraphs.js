@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
 import sampleData from "../sample_data/data.json";
 import GraphProper from "./GraphProper";
 import DatePicker from "react-datepicker";
