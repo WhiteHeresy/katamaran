@@ -1,8 +1,15 @@
 import React, { Component } from "react";
-import { Map, withLeaflet, TileLayer, Polyline, Polygon } from "react-leaflet";
+import {
+  Map,
+  withLeaflet,
+  TileLayer,
+  ZoomControl,
+  Polyline,
+  Polygon
+} from "react-leaflet";
 import PlacedMarkers from "./PlacedMarkers";
 import MeasureControlDefault from "react-leaflet-measure";
-
+import { BoxZoomControl } from "react-leaflet-box-zoom";
 class MapProper extends Component {
   constructor(props) {
     super(props);
@@ -44,12 +51,14 @@ class MapProper extends Component {
     console.log(this.state.measuredArea);
     return (
       <div style={{ width: "100%", height: "100%" }}>
-        <Map center={center} zoom={initZoom} id={"mapid"}>
+        <Map center={center} zoom={initZoom} id={"mapid"} ZoomControl={true}>
           {dispIDW ? null : null}
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+
+          <BoxZoomControl position="topright" />
           <PlacedMarkers mapData={mapData}></PlacedMarkers>
           {dispPath ? (
             <Polyline
